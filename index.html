@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <!-- <link rel="stylesheet" href="whatever-you-want.css"> -->
+    <script src="elm.js"></script>
+  </head>
+
+  <body>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.1/firebase.js"></script>
+
+    <script>
+
+      var newMessage = "";
+
+      var app = Elm.Main.init({
+        flags: newMessage
+      });
+
+      // Initialize Firebase
+      var config = {databaseURL: "Your App URL"};
+      firebase.initializeApp(config);
+      const database = firebase.database();
+      const ref = database.ref('messages');
+
+      // Loads chat messages history and listens for upcoming ones.
+      ref.on("child_added", (snapshot) => {
+          newMessage = {
+              id: snapshot.key,
+              value: snapshot.val()
+          };
+          // DEBUG
+          console.log(newMessage);
+
+          app.ports.newMessage.send(newMessage);
+      });
+
+      // Saves a new message on the Firebase DB.
+      const postMessage = (content) => {
+        // DEBUG
+        console.log(content);
+
+        ref.push(content)
+        .then((res) => {
+          console.log(res);
+        });
+      };
+
+      app.ports.postMessage.subscribe((data) => {
+        postMessage(JSON.stringify(data));
+      });
+
+    </script>
+  </body>
+</html>
