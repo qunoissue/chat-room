@@ -42,7 +42,8 @@ update msg model =
     Submit ->
       case validate model.form of
         Ok form ->
-          ( { form = { name = model.form.name, message = "" }
+          ( { model
+            | form = { name = model.form.name, message = "" }
             , history = model.history
             , problems = []
             }
@@ -66,6 +67,7 @@ update msg model =
                 append
                   model.history
                   [ form ]
+            , status = Loaded
             }
             , Cmd.none
           )
@@ -76,6 +78,7 @@ update msg model =
                 append
                   model.problems
                   [ errorToString error ]
+            , status = Failed
             }
           , Cmd.none
           )

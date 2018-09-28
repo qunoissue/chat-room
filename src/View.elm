@@ -6,7 +6,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onSubmit)
 import List exposing (map)
 
-import Model exposing (Form, Model, Problem)
+import Model exposing (..)
 import Update exposing (Msg(..))
 
 -- VIEW
@@ -16,7 +16,14 @@ view model =
   { title = "ChatRoom"
   , body =
       [ div []
-          [ div [] (map viewHistory model.history)
+          [ div [] <|
+              case model.status of
+                Loading ->
+                  [ text "Loading..." ]
+                Loaded ->
+                  map viewHistory model.history
+                Failed ->
+                  []
           , viewForm model.form
           , ul []
               (map viewError model.problems)

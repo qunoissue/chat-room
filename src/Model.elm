@@ -21,10 +21,17 @@ type alias Form =
 type alias Problem = String
 
 
+type Status
+  = Loading
+  | Loaded
+  | Failed
+
+
 type alias Model =
   { form : Form
   , history : List Form
   , problems : List Problem
+  , status : Status
   }
 
 
@@ -42,4 +49,5 @@ init =
     }
   , history = []
   , problems = []
+  , status = Loading
   }
