@@ -11,7 +11,24 @@ module.exports = {
         rules: [
             {
                 test: /\.(css|scss)$/,
-                loader: ['style-loader', 'css-loader', 'sass-loader'],
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[name]__[local]'
+                        }
+                    },
+                    {
+                        'loader': 'sass-loader',
+                        'options': {
+                            'includePaths': [
+                                `${__dirname}/styles/`,
+                            ],
+                        },
+                    },
+                ]
             },
             {
                 test:    /\.elm$/,
@@ -24,7 +41,6 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Elm app',
             template: `${__dirname}/src/index.html`,
         })
     ],

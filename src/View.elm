@@ -1,59 +1,66 @@
-module View exposing (..)
+module View exposing (view, viewError, viewForm, viewHistory, viewInput)
 
 import Browser exposing (Document, document)
+import Css exposing (Css, class)
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (placeholder, style, type_, value)
 import Html.Events exposing (onInput, onSubmit)
 import List exposing (map)
-
 import Model exposing (..)
 import Update exposing (Msg(..))
 
+
+
 -- VIEW
+
 
 view : Model -> Document Msg
 view model =
-  { title = "ChatRoom"
-  , body =
-      [ div []
-          [ div [] <|
-              case model.status of
-                Loading ->
-                  [ text "Loading..." ]
-                Loaded ->
-                  map viewHistory model.history
-                Failed ->
-                  []
-          , viewForm model.form
-          , ul []
-              (map viewError model.problems)
-          ]
-      ]
-  }
+    { title = "ChatRoom"
+    , body =
+        [ div []
+            [ div [] <|
+                case model.status of
+                    Loading ->
+                        [ div []
+                            [ text "Loading..." ]
+                        ]
+
+                    Loaded ->
+                        map viewHistory model.history
+
+                    Failed ->
+                        []
+            , viewForm model.form
+            , ul []
+                (map viewError model.problems)
+            ]
+        ]
+    }
 
 
 viewForm : Form -> Html Msg
 viewForm form =
-  Html.form [ onSubmit Submit ]
-    [ fieldset []
-        [ viewInput "text" "Name" form.name ChangeName
-        , viewInput "text" "Message" form.message ChangeMessage
-        , button [] [ text "send" ]
+    Html.form [ onSubmit Submit ]
+        [ fieldset []
+            [ viewInput "text" "Name" form.name ChangeName
+            , viewInput "text" "Message" form.message ChangeMessage
+            , button [] [ text "send" ]
+            ]
         ]
-    ]
 
 
 viewHistory : Form -> Html msg
 viewHistory form =
-  div []
-    [ text (form.name ++ " : " ++ form.message) ]
+    div []
+        [ text (form.name ++ " : " ++ form.message) ]
 
 
-viewInput : String -> String -> String -> (String -> msg) ->Html msg
+viewInput : String -> String -> String -> (String -> msg) -> Html msg
 viewInput t p v toMsg =
-  input [ type_ t, placeholder p, value v, onInput toMsg ] []
+    input [ type_ t, placeholder p, value v, onInput toMsg ] []
 
 
 viewError : Problem -> Html msg
 viewError problem =
-      li [ style "color" "red" ] [ text problem ]
+    li [ class Css.Label "error" ] [ text problem ]

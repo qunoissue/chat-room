@@ -1,6 +1,7 @@
 const { Elm }  = require('./Main.elm');
 const mountNode = document.getElementById('main');
 
+require('./styles/label.scss');
 
 var newMessage = "";
 
