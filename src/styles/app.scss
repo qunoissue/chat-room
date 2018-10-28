@@ -1,0 +1,26 @@
+.main {
+  height: 100%;
+  width: 100%;
+  background-color: #99ffff;
+}
+
+.history {
+  height: 75vh;
+  overflow-y: auto;
+}
+
+
+.footer {
+  position: fixed;
+  height: 20vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2%;
+}
+
+form {
+  font-size: 24px;
+}

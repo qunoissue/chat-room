@@ -1,9 +1,9 @@
-module View exposing (view, viewError, viewForm, viewHistory, viewInput)
+module View exposing (view)
 
 import Browser exposing (Document, document)
 import Css exposing (Css, class)
 import Html exposing (..)
-import Html.Attributes exposing (placeholder, style, type_, value)
+import Html.Attributes as At exposing (class, placeholder, style, type_, value)
 import Html.Events exposing (onInput, onSubmit)
 import List exposing (map)
 import Model exposing (..)
@@ -18,12 +18,16 @@ view : Model -> Document Msg
 view model =
     { title = "ChatRoom"
     , body =
-        [ div []
-            [ div [] <|
+        [ div
+            [ Css.class Css.App "main" ]
+            [ div [ Css.class Css.App "history" ] <|
                 case model.status of
                     Loading ->
-                        [ div []
-                            [ text "Loading..." ]
+                        [ div [ Css.class Css.Loader "loader" ]
+                            [ div
+                                [ Css.class Css.Loader "ball-clip-rotate" ]
+                                [ div [] [] ]
+                            ]
                         ]
 
                     Loaded ->
@@ -31,9 +35,11 @@ view model =
 
                     Failed ->
                         []
-            , viewForm model.form
-            , ul []
-                (map viewError model.problems)
+            , div [ Css.class Css.App "footer" ]
+                [ viewForm model.form
+                , ul [] <|
+                    map viewError model.problems
+                ]
             ]
         ]
     }
@@ -42,25 +48,28 @@ view model =
 viewForm : Form -> Html Msg
 viewForm form =
     Html.form [ onSubmit Submit ]
-        [ fieldset []
-            [ viewInput "text" "Name" form.name ChangeName
-            , viewInput "text" "Message" form.message ChangeMessage
-            , button [] [ text "send" ]
-            ]
+        [ input [ type_ "text", placeholder "Name", value form.name, onInput ChangeName ] []
+        , input [ type_ "textarea", placeholder "Message", value form.message, onInput ChangeMessage ] []
+        , button [] [ text "send" ]
         ]
 
 
 viewHistory : Form -> Html msg
 viewHistory form =
-    div []
-        [ text (form.name ++ " : " ++ form.message) ]
+    let
+        messageClass =
+            if form.name == "Guest" then
+                "message-right"
 
-
-viewInput : String -> String -> String -> (String -> msg) -> Html msg
-viewInput t p v toMsg =
-    input [ type_ t, placeholder p, value v, onInput toMsg ] []
+            else
+                "message-left"
+    in
+    div [ Css.class Css.Label messageClass ]
+        [ p []
+            [ text (form.name ++ " : " ++ form.message) ]
+        ]
 
 
 viewError : Problem -> Html msg
 viewError problem =
-    li [ class Css.Label "error" ] [ text problem ]
+    li [ Css.class Css.Label "error" ] [ text problem ]

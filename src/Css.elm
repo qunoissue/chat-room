@@ -13,6 +13,7 @@ type Css
     | Input
     | Label
     | App
+    | Loader
 
 
 cssPrefix : Css -> String
@@ -29,6 +30,9 @@ cssPrefix css =
 
         App ->
             "app__"
+
+        Loader ->
+            "loader__"
 
 
 className : Css -> String -> String

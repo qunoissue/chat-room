@@ -2,6 +2,8 @@ const { Elm }  = require('./Main.elm');
 const mountNode = document.getElementById('main');
 
 require('./styles/label.scss');
+require('./styles/app.scss');
+require('./styles/loader.scss');
 
 var newMessage = "";
 
@@ -11,7 +13,7 @@ const app = Elm.Main.init({
 });
 
 // Initialize Firebase
-const config = {databaseURL: "Your App URL"};
+const config = {databaseURL: "Your App Name"};
 firebase.initializeApp(config);
 const database = firebase.database();
 const ref = database.ref('messages');
