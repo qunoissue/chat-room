@@ -1,9 +1,11 @@
 port module Update exposing (Msg(..), decode, formDecoder, newMessage, postMessage, recordDecoder, subscriptions, update)
 
+import Browser.Dom as Dom
 import Json.Decode as D exposing (Decoder, Error, decodeString, decodeValue, errorToString, field, map2, string)
 import Json.Encode as E exposing (Value, object, string)
 import List exposing (append)
 import Model exposing (..)
+import Task exposing (attempt)
 import Validate exposing (validate)
 
 
@@ -30,6 +32,7 @@ type Msg
     | ChangeMessage Message
     | Submit
     | Changed Value
+    | NoOp
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -76,7 +79,7 @@ update msg model =
                                 [ form ]
                         , status = Loaded
                       }
-                    , Cmd.none
+                    , jumpToBottom "history"
                     )
 
                 Err error ->
@@ -89,6 +92,16 @@ update msg model =
                       }
                     , Cmd.none
                     )
+
+        NoOp ->
+            ( model, Cmd.none )
+
+
+jumpToBottom : String -> Cmd Msg
+jumpToBottom id =
+    Dom.getViewportOf id
+        |> Task.andThen (\info -> Dom.setViewportOf id 0 info.scene.height)
+        |> Task.attempt (\_ -> NoOp)
 
 
 decode : Value -> Result Error Form

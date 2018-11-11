@@ -2,24 +2,24 @@ li.error {
   color: red;
 }
 
-.message {
-  font-size: 32px;
-}
-
-
 .message-left {
-    margin: 15px 2%;
+    margin: 15px 1%;
     text-align: left;
 }
+
+.message-left label {
+    font-size: 20px;
+}
+
 .message-left p {
     display: inline-block;
     position: relative;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 20px;
     padding: 1%;
     max-width: 60%;
     border-radius: 12px;
     background: #ff9090;
-    font-size: 32px;
+    font-size: 24px;
     text-align: left;
 }
 
@@ -37,18 +37,23 @@ li.error {
 }
 
 .message-right {
-    margin: 15px 2%;
+    margin: 15px 1%;
     text-align: right;
 }
-.message-right p{
+
+.message-right label {
+    font-size: 20px;
+}
+
+.message-right p {
     display: inline-block;
     position: relative;
-    margin: 0 10px 0 0;
+    margin: 0 20px 0 0;
     padding: 1%;
     max-width: 60%;
     border-radius: 12px;
     background: #30e852;
-    font-size: 32px;
+    font-size: 24px;
     text-align: left;
 }
 

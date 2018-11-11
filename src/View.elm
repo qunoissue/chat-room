@@ -4,7 +4,8 @@ import Browser exposing (Document, document)
 import Css exposing (Css, class)
 import Html exposing (..)
 import Html.Attributes as At exposing (class, placeholder, style, type_, value)
-import Html.Events exposing (onInput, onSubmit)
+import Html.Events exposing (on, onClick, onInput, onSubmit)
+import Json.Decode as D
 import List exposing (map)
 import Model exposing (..)
 import Update exposing (Msg(..))
@@ -19,8 +20,13 @@ view model =
     { title = "ChatRoom"
     , body =
         [ div
-            [ Css.class Css.App "main" ]
-            [ div [ Css.class Css.App "history" ] <|
+            [ Css.class Css.App "main"
+            ]
+            [ div
+                [ Css.class Css.App "history"
+                , At.id "history"
+                ]
+              <|
                 case model.status of
                     Loading ->
                         [ div [ Css.class Css.Loader "loader" ]
@@ -65,8 +71,12 @@ viewHistory form =
                 "message-left"
     in
     div [ Css.class Css.Label messageClass ]
-        [ p []
-            [ text (form.name ++ " : " ++ form.message) ]
+        [ label []
+            [ text form.name ]
+        , div []
+            [ p []
+                [ text form.message ]
+            ]
         ]
 
 
