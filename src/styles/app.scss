@@ -9,18 +9,14 @@
   overflow-y: auto;
 }
 
-
 .footer {
   position: fixed;
-  height: 20vh;
+  height: 25vh;
   bottom: 0;
   left: 0;
   right: 0;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: 2%;
+  padding-right: 2%;
   padding-top: 2%;
-}
-
-form {
-  font-size: 24px;
+  border: ridge;
 }

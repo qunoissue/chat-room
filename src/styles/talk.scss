@@ -1,0 +1,100 @@
+
+
+.others {
+  margin: 15px 1%;
+  text-align: left;
+  opacity: 0;
+  animation-name: emerge;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in;
+  animation-delay: 50ms;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+@keyframes emerge {
+  0% {
+    opacity: 0;
+    transform : translate(0, 50px);
+  }
+  100% {
+    opacity: 1;
+    transform : translate(0, 0);
+  }
+}
+
+.others label {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.others p {
+  display: inline-block;
+  position: relative;
+  margin: 0 0 0 20px;
+  padding: 5px 10px;
+  max-width: 60%;
+  border-radius: 12px;
+  background: #ff9090;
+  font-size: 24px;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.others p:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #ff9090;
+  -ms-transform: rotate(35deg);
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+}
+
+.self {
+  margin: 15px 1%;
+  text-align: right;
+  opacity: 0;
+  animation-name: emerge;
+  animation-duration: 200ms;
+  animation-timing-function: ease-in;
+  animation-delay: 50ms;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+.self label {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.self p {
+  display: inline-block;
+  position: relative;
+  margin: 0 20px 0 0;
+  padding: 5px 10px;
+  max-width: 60%;
+  border-radius: 12px;
+  background: #30e852;
+  font-size: 24px;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.self p:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -19px;
+  border: 8px solid transparent;
+  border-left: 18px solid #30e852;
+  -ms-transform: rotate(-35deg);
+  -webkit-transform: rotate(-35deg);
+  transform: rotate(-35deg);
+  word-wrap: break-word;
+}

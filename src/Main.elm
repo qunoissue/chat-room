@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser exposing (document)
 import Json.Encode exposing (Value)
 import Model exposing (Model)
+import Ports exposing (getName)
 import Update exposing (Msg, subscriptions, update)
 import View exposing (view)
 
@@ -28,5 +29,5 @@ main =
 init : Value -> ( Model, Cmd Msg )
 init _ =
     ( Model.init
-    , Cmd.none
+    , getName ()
     )

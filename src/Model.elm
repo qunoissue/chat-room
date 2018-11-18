@@ -1,5 +1,6 @@
-module Model exposing (Form, Message, Model, Name, Problem, Record, Status(..), init)
+module Model exposing (Item, Message, Model, Name, Problem(..), Status(..), Talk, init)
 
+import Json.Decode exposing (Error)
 import List exposing (singleton)
 
 
@@ -15,14 +16,15 @@ type alias Message =
     String
 
 
-type alias Form =
+type alias Talk =
     { name : Name
     , message : Message
     }
 
 
-type alias Problem =
-    String
+type Problem
+    = MessageEmpty
+    | DecodeError Error
 
 
 type Status
@@ -32,26 +34,27 @@ type Status
 
 
 type alias Model =
-    { form : Form
-    , history : List Form
+    { name : Name
+    , message : Message
+    , history : List Talk
     , problems : List Problem
+    , showDialog : Bool
     , status : Status
     }
 
 
-type alias Record =
-    { id : String
-    , val : String
+type alias Item =
+    { key : String
+    , value : String
     }
 
 
 init : Model
 init =
-    { form =
-        { name = "Guest"
-        , message = ""
-        }
+    { name = ""
+    , message = ""
     , history = []
     , problems = []
+    , showDialog = False
     , status = Loading
     }

@@ -7,3 +7,4 @@ elm.js
 
 dist/
 node_modules/
+*.log

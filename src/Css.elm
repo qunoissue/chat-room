@@ -9,30 +9,26 @@ import Html.Attributes as Attributes
 
 
 type Css
-    = Layout
-    | Input
-    | Label
-    | App
+    = App
+    | Form
     | Loader
+    | Talk
 
 
 cssPrefix : Css -> String
 cssPrefix css =
     case css of
-        Layout ->
-            "layout__"
-
-        Input ->
-            "input__"
-
-        Label ->
-            "label__"
-
         App ->
             "app__"
 
+        Form ->
+            "form__"
+
         Loader ->
             "loader__"
+
+        Talk ->
+            "talk__"
 
 
 className : Css -> String -> String
