@@ -1,0 +1,19 @@
+form {
+  font-size: 24px;
+}
+
+.button {
+  margin:-25px 0 0 2px;
+}
+
+textarea {
+  height: 100px;
+  width: 75%;
+  resize: both;
+  border-radius: .25rem;
+}
+
+textarea:focus {
+  box-shadow: 0 0 7px #0cf;
+  border: 1px solid #0cf;
+}

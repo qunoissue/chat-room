@@ -1,53 +1,60 @@
-module Model exposing (..)
+module Model exposing (Item, Message, Model, Name, Problem(..), Status(..), Talk, init)
 
+import Json.Decode exposing (Error)
 import List exposing (singleton)
 
 
 
 -- MODEL
 
-type alias Name = String
+
+type alias Name =
+    String
 
 
-type alias Message = String
+type alias Message =
+    String
 
 
-type alias Form =
-  { name : Name
-  , message : Message
-  }
+type alias Talk =
+    { name : Name
+    , message : Message
+    }
 
 
-type alias Problem = String
+type Problem
+    = MessageEmpty
+    | DecodeError Error
 
 
 type Status
-  = Loading
-  | Loaded
-  | Failed
+    = Loading
+    | Loaded
+    | Failed
 
 
 type alias Model =
-  { form : Form
-  , history : List Form
-  , problems : List Problem
-  , status : Status
-  }
+    { name : Name
+    , message : Message
+    , history : List Talk
+    , problems : List Problem
+    , showDialog : Bool
+    , status : Status
+    }
 
 
-type alias Record =
-  { id : String
-  , val : String
-  }
+type alias Item =
+    { key : String
+    , value : String
+    }
 
 
 init : Model
 init =
-  { form =
-    { name = "Guest"
+    { name = ""
     , message = ""
+    , history = []
+    , problems = []
+    , showDialog = False
+    , status = Loading
     }
-  , history = []
-  , problems = []
-  , status = Loading
-  }
